@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/uploads:/app/uploads
+      - ./src/cache:/app/cache
+    ports:
+      - "3000:3000"
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  # Change to an available port, like 8080
+    depends_on:
+      - app
